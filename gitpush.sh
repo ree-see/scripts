@@ -17,21 +17,20 @@ remote_url="https://github.com/ree-see/$remote_repo.git"
 
 # Check if the remote is set, if not, add it
 if ! git remote | grep -q "origin"; then
-    git remote add origin "$remote_url"
+	gh repo create remote_repo
 else
     echo "Remote 'origin' already exists."
+	# Add all files to the staging area
+	git add .
+
+	# Commit the changes
+	echo "Enter commit message:\n>"
+	read commit_message
+	git commit -m "$commit_message"
 fi
 
-# Add all files to the staging area
-git add .
-
-# Commit the changes
-echo "Enter commit message:\n>"
-read commit_message
-git commit -m "$commit_message"
-
 # Push the changes to the GitHub repository
-git push -u origin master  # Change 'master' to your branch name if different
+git push -u origin main # Change 'master' to your branch name if different
 
 echo "Git push completed."
 
